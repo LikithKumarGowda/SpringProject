@@ -7,7 +7,7 @@ class UpdateStudentComponent extends Component {
 
     this.state = {
       id: this.props.match.params.id,
-      name: "",
+      studentName: "",
       phoneNumber: "",
       emailId: "",
       rollNumber: "",
@@ -25,7 +25,7 @@ class UpdateStudentComponent extends Component {
     StudentService.getStudentById(this.state.id).then((res) => {
       let student = res.data;
       this.setState({
-        name: student.name,
+        studentName: student.studentName,
         phoneNumber: student.phoneNumber,
         emailId: student.emailId,
         rollNumber: student.rollNumber,
@@ -37,7 +37,7 @@ class UpdateStudentComponent extends Component {
   updateStudent = (e) => {
     e.preventDefault();
     let employee = {
-      name: this.state.name,
+      studentName: this.state.studentName,
       phoneNumber: this.state.phoneNumber,
       emailId: this.state.emailId,
       rollNumber: this.state.rollNumber,
@@ -51,7 +51,7 @@ class UpdateStudentComponent extends Component {
   };
 
   changeNameHandler = (event) => {
-    this.setState({ name: event.target.value });
+    this.setState({ studentName: event.target.value });
   };
 
   changePhoneNumberHandler = (event) => {
@@ -88,9 +88,9 @@ class UpdateStudentComponent extends Component {
                     <label> Name: </label>
                     <input
                       placeholder="Name"
-                      name="name"
+                      name="studentName"
                       className="form-control"
-                      value={this.state.name}
+                      value={this.state.studentName}
                       onChange={this.changeNameHandler}
                     />
                   </div>

@@ -26,7 +26,7 @@ class ViewStudentComponent extends Component {
           <div className="card-body">
             <div className="row">
               <label> Student Name: </label>
-              <div> {this.state.student.name}</div>
+              <div> {this.state.student.studentName}</div>
             </div>
             <div className="row">
               <label> Student Phone Number: </label>

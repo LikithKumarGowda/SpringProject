@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StudentService from "../services/StudentService";
+import swal from "sweetalert";
 
 class ListStudentComponent extends Component {
   constructor(props) {
@@ -13,10 +14,21 @@ class ListStudentComponent extends Component {
     this.deleteStudent = this.deleteStudent.bind(this);
   }
 
+  sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
   deleteStudent(id) {
     StudentService.deleteStudent(id).then((res) => {
-      this.setState({
-        students: this.state.students.filter((student) => student.id !== id),
+      this.sleep(3000).then((r) => {
+        swal({
+          title: "Student Deleted Successfully",
+          text: res.data.message,
+          icon: "success",
+          button: "Done!",
+        });
+        this.setState({
+          students: this.state.students.filter((student) => student.id !== id),
+        });
       });
     });
   }
@@ -63,7 +75,7 @@ class ListStudentComponent extends Component {
             <tbody>
               {this.state.students.map((student) => (
                 <tr key={student.id}>
-                  <td> {student.name} </td>
+                  <td> {student.studentName} </td>
                   <td> {student.phoneNumber}</td>
                   <td> {student.emailId}</td>
                   <td> {student.rollNumber}</td>

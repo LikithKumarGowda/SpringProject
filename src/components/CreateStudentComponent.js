@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import StudentService from "../services/StudentService";
+import swal from "sweetalert";
 
 class CreateStudentComponent extends Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class CreateStudentComponent extends Component {
     this.state = {
       // step 2
       id: this.props.match.params.id,
-      name: "",
+      studentName: "",
       phoneNumber: "",
       emailId: "",
       rollNumber: "",
@@ -23,6 +24,9 @@ class CreateStudentComponent extends Component {
   }
 
   // step 3
+  sleep = (milliseconds) => {
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
+  };
   componentDidMount() {
     // step 4
     if (this.state.id === "_add") {
@@ -30,8 +34,9 @@ class CreateStudentComponent extends Component {
     } else {
       StudentService.getStudentById(this.state.id).then((res) => {
         let student = res.data;
+
         this.setState({
-          name: student.name,
+          studentName: student.studentName,
           phoneNumber: student.phoneNumber,
           emailId: student.emailId,
           rollNumber: student.rollNumber,
@@ -43,28 +48,45 @@ class CreateStudentComponent extends Component {
   saveOrUpdateStudent = (e) => {
     e.preventDefault();
     let student = {
-      name: this.state.name,
+      studentName: this.state.studentName,
       phoneNumber: this.state.phoneNumber,
       emailId: this.state.emailId,
       rollNumber: this.state.rollNumber,
       location: this.state.location,
     };
-    console.log("student => " + JSON.stringify(student));
+    //console.log("student => " + JSON.stringify(student));
 
     // step 5
     if (this.state.id === "_add") {
       StudentService.createStudent(student).then((res) => {
         this.props.history.push("/students");
+        this.sleep(3000).then((r) => {
+          // do something
+          swal({
+            title: "Student Added Successfully",
+            text: res.data.message,
+            icon: "success",
+            button: "Done!",
+          });
+        });
       });
     } else {
       StudentService.updateStudent(student, this.state.id).then((res) => {
         this.props.history.push("/students");
+        this.sleep(3000).then((r) => {
+          swal({
+            title: "Updated Successfully",
+            text: res.data.message,
+            icon: "success",
+            button: "Done!",
+          });
+        });
       });
     }
   };
 
   changeNameHandler = (event) => {
-    this.setState({ name: event.target.value });
+    this.setState({ studentName: event.target.value });
   };
 
   changePhoneNumberHandler = (event) => {
@@ -108,9 +130,9 @@ class CreateStudentComponent extends Component {
                     <label> Name: </label>
                     <input
                       placeholder="Name"
-                      name="name"
+                      name="studentName"
                       className="form-control"
-                      value={this.state.name}
+                      value={this.state.studentName}
                       onChange={this.changeNameHandler}
                     />
                   </div>

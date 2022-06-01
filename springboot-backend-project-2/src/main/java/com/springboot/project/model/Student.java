@@ -6,6 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+
+
 
 @Entity
 @Table(name = "students")
@@ -14,26 +18,30 @@ public class Student {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotBlank
 	@Column(name = "student_name")
 	private String studentName;
 	
+	@NotBlank
 	@Column(name = "phone_number")
-	private long phoneNumber;
+	private String phoneNumber;
 	
+	@NotBlank
 	@Column(name = "email_id")
 	private String emailId;
 	
-	
+	@NotBlank
 	@Column(name = "roll_number")
 	private String rollNumber;
 	
+	@NotBlank
 	@Column(name = "location")
 	private String location;
 	
 	public Student() {
 		
 	}
-	public Student(String studentName, long phoneNumber, String emailId, String rollNumber, String location) {
+	public Student(String studentName, String phoneNumber, String emailId, String rollNumber, String location) {
 		super();
 		this.studentName = studentName;
 		this.phoneNumber = phoneNumber;
@@ -54,10 +62,10 @@ public class Student {
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
-	public long getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
-	public void setPhoneNumber(long phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 	public String getEmailId() {

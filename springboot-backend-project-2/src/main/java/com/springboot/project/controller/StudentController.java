@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springboot.project.exception.ResourceNotFoundException;
@@ -35,7 +35,7 @@ public class StudentController {
 	}
 	
 	@PostMapping("/students")
-	public @ResponseBody Student createStudent(@RequestBody Student student) {
+	public  Student createStudent(@RequestBody Student student) {
 		return studentRepository.save(student);
 	}
 	
@@ -47,7 +47,7 @@ public class StudentController {
 	}
 	
 	@PutMapping("/students/{id}")
-	public @ResponseBody ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student studentDetails){
+	public  ResponseEntity<Student> updateStudent(@PathVariable Long id, @RequestBody Student studentDetails){
 		Student student = studentRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Student not exist with id :" + id));
 		
@@ -62,7 +62,7 @@ public class StudentController {
 	}
 	
 	@DeleteMapping("/students/{id}")
-	public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable Long id){
+	public ResponseEntity<Map<String, Boolean>> deleteStudent(@PathVariable Long id){
 		Student student = studentRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Student does not exist with id :" + id));
 		

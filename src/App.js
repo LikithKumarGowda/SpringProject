@@ -26,6 +26,7 @@ function App() {
             ></Route>
           </Switch>
         </div>
+
         <FooterComponent />
       </Router>
     </div>

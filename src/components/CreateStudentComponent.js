@@ -24,6 +24,7 @@ class CreateStudentComponent extends Component {
   }
 
   // step 3
+
   sleep = (milliseconds) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
   };
@@ -58,30 +59,57 @@ class CreateStudentComponent extends Component {
 
     // step 5
     if (this.state.id === "_add") {
-      StudentService.createStudent(student).then((res) => {
-        this.props.history.push("/students");
-        this.sleep(3000).then((r) => {
-          // do something
-          swal({
-            title: "Student Added Successfully",
-            text: res.data.message,
-            icon: "success",
-            button: "Done!",
+      StudentService.createStudent(student)
+        .then((res) => {
+          this.sleep(3000).then((r) => {
+            // do something
+            this.props.history.push("/students");
+            swal({
+              title: "Student Added Successfully",
+              text: res.data.message,
+              icon: "success",
+              button: "Done!",
+            });
+          });
+        })
+        .catch((error) => {
+          console.log("Error adding data, Please check the data entry", error);
+          this.sleep(500).then((r) => {
+            swal({
+              title: "Error Adding Data",
+              text: "Error",
+              icon: "error",
+              button: "Done!",
+            });
           });
         });
-      });
     } else {
-      StudentService.updateStudent(student, this.state.id).then((res) => {
-        this.props.history.push("/students");
-        this.sleep(3000).then((r) => {
-          swal({
-            title: "Updated Successfully",
-            text: res.data.message,
-            icon: "success",
-            button: "Done!",
+      StudentService.updateStudent(student, this.state.id)
+        .then((res) => {
+          this.sleep(3000).then((r) => {
+            swal({
+              title: "Updated Successfully",
+              text: res.data.message,
+              icon: "success",
+              button: "Done!",
+            });
+            this.props.history.push("/students");
+          });
+        })
+        .catch((error) => {
+          console.log(
+            "Error updating data, Please check the data entry",
+            error
+          );
+          this.sleep(500).then((r) => {
+            swal({
+              title: "Error Updating Data",
+              text: "Error",
+              icon: "error",
+              button: "Done!",
+            });
           });
         });
-      });
     }
   };
 

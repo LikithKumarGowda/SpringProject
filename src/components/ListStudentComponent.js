@@ -19,16 +19,14 @@ class ListStudentComponent extends Component {
   };
   deleteStudent(id) {
     StudentService.deleteStudent(id).then((res) => {
-      this.sleep(3000).then((r) => {
-        swal({
-          title: "Student Deleted Successfully",
-          text: res.data.message,
-          icon: "success",
-          button: "Done!",
-        });
-        this.setState({
-          students: this.state.students.filter((student) => student.id !== id),
-        });
+      swal({
+        title: "Student Deleted Successfully",
+        text: res.data.message,
+        icon: "success",
+        button: "Done!",
+      });
+      this.setState({
+        students: this.state.students.filter((student) => student.id !== id),
       });
     });
   }

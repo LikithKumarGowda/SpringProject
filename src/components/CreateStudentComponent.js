@@ -63,13 +63,14 @@ class CreateStudentComponent extends Component {
         .then((res) => {
           this.sleep(3000).then((r) => {
             // do something
-            this.props.history.push("/students");
+
             swal({
               title: "Student Added Successfully",
               text: res.data.message,
               icon: "success",
               button: "Done!",
             });
+            this.props.history.push("/students");
           });
         })
         .catch((error) => {
@@ -155,7 +156,9 @@ class CreateStudentComponent extends Component {
               <div className="card-body">
                 <form>
                   <div className="form-group">
-                    <label> Name: </label>
+                    <label>
+                      <h5>Name:</h5>{" "}
+                    </label>
                     <input
                       placeholder="Name"
                       name="studentName"
@@ -165,7 +168,9 @@ class CreateStudentComponent extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label> Phone Number: </label>
+                    <label>
+                      <h5>Phone Number:</h5>{" "}
+                    </label>
                     <input
                       placeholder=" Phone Number"
                       name="phoneNumber"
@@ -175,7 +180,9 @@ class CreateStudentComponent extends Component {
                     />
                   </div>
                   <div className="form-group">
-                    <label> Email Id: </label>
+                    <label>
+                      <h5>Email Id:</h5>{" "}
+                    </label>
                     <input
                       placeholder="Email Address"
                       name="emailId"
@@ -186,7 +193,9 @@ class CreateStudentComponent extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label> Roll Number: </label>
+                    <label>
+                      <h5>Roll Number:</h5>{" "}
+                    </label>
                     <input
                       placeholder="Roll Number"
                       name="rollNumber"
@@ -197,7 +206,9 @@ class CreateStudentComponent extends Component {
                   </div>
 
                   <div className="form-group">
-                    <label> Location: </label>
+                    <label>
+                      <h5>Location:</h5>{" "}
+                    </label>
                     <input
                       placeholder="Location"
                       name="location"
